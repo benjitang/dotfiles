@@ -15,6 +15,10 @@ require("lazy").setup({
   "tpope/vim-fugitive",
   "tpope/vim-surround",
   "stevearc/oil.nvim",
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
+  },
   -- completion
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
