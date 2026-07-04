@@ -1,23 +1,14 @@
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "solargraph", "tsserver" }
+  ensure_installed = { "lua_ls", "ts_ls" }
 })
 
-local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lsp_defaults = lspconfig.util.default_config
-
-lsp_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lsp_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
-)
-
-require("lspconfig").lua_ls.setup {
+vim.lsp.config('lua_ls', {
+  capabilities = capabilities,
   settings = {
     Lua = {
-      diagnostics = {
-        globals = { "vim" },
-      },
+      diagnostics = { globals = { "vim" } },
       workspace = {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
@@ -26,21 +17,18 @@ require("lspconfig").lua_ls.setup {
       },
     },
   }
-}
+})
 
-require("lspconfig").solargraph.setup({})
-require("lspconfig").tsserver.setup({})
-require("lspconfig").gopls.setup({})
-require("lspconfig").tailwindcss.setup({})
+vim.lsp.config('ts_ls', { capabilities = capabilities })
+vim.lsp.config('gopls', { capabilities = capabilities })
+vim.lsp.config('tailwindcss', { capabilities = capabilities })
+
+vim.lsp.enable({ 'lua_ls', 'ts_ls', 'gopls', 'tailwindcss' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)

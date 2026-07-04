@@ -7,7 +7,7 @@ require("lazy").setup({
   "ellisonleao/gruvbox.nvim",
   "dracula/vim",
   "nvim-lualine/lualine.nvim",
-  "nvim-treesitter/nvim-treesitter",
+  {"nvim-treesitter/nvim-treesitter", branch = "master"},
   "vim-test/vim-test",
   "lewis6991/gitsigns.nvim",
   "preservim/vimux",
