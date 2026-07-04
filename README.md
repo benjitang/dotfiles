@@ -4,6 +4,7 @@ My personal configuration files, managed with symlinks so edits here show up liv
 
 Currently includes:
 - `nvim/` — Neovim config
+- `starship.toml` — Starship prompt config
 
 ## Install
 
