@@ -110,7 +110,16 @@ alias cbuild='cmake --build build'
 alias cpprun='./scripts/run.sh'
 export ADB_PATH="/mnt/d/ProgramData/AppData/Local/Android/Sdk/platform-tools/adb.exe"
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 . "$HOME/.local/bin/env"
+
+# Load zsh-autocomplete LAST, after Oh My Zsh and everything else,
+# so nothing downstream overrides its keybindings/completion.
+source /home/linuxbrew/.linuxbrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+bindkey -M menuselect '\e' send-break
+setopt HIST_IGNORE_ALL_DUPS   # when a new command is added, delete any older duplicate of it
+setopt HIST_FIND_NO_DUPS      # when searching/browsing history, skip duplicate entries
+setopt HIST_SAVE_NO_DUPS      # don't write duplicate lines to the history file at all
