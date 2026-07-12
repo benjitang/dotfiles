@@ -112,3 +112,5 @@ export ADB_PATH="/mnt/d/ProgramData/AppData/Local/Android/Sdk/platform-tools/adb
 
 
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+. "$HOME/.local/bin/env"
