@@ -16,6 +16,47 @@ require("lazy").setup({
   "tpope/vim-surround",
   "stevearc/oil.nvim",
   {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    opts = {
+      formatters_by_ft = {
+        python = { "black" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        json = { "prettier" },
+        css = { "prettier" },
+        html = { "prettier" },
+        markdown = { "prettier" },
+        cpp = { "clang-format" },
+        c = { "clang-format" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufWritePost" },
+    config = function()
+      require("lint").linters_by_ft = {
+        python = { "ruff" },
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        javascriptreact = { "eslint" },
+        typescriptreact = { "eslint" },
+      }
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end,
+  },
+  {
     "sphamba/smear-cursor.nvim",
     opts = {},
   },
