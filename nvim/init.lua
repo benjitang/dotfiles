@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:block-blinkwait700-blinkoff400-blinkon250"
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
+vim.opt.clipboard = "unnamedplus"
 
 require("core.options")
 require("core.keymaps")

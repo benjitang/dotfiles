@@ -116,6 +116,8 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 
 . "$HOME/.local/bin/env"
 
+
+eval "$(zoxide init zsh --cmd cd)"
 # Load zsh-autocomplete LAST, after Oh My Zsh and everything else,
 # so nothing downstream overrides its keybindings/completion.
 source /home/linuxbrew/.linuxbrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh

@@ -1,5 +1,5 @@
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "ts_ls" }
+  ensure_installed = { "lua_ls", "ts_ls", "pyright", "clangd", "gopls", "tailwindcss" }
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -22,8 +22,26 @@ vim.lsp.config('lua_ls', {
 vim.lsp.config('ts_ls', { capabilities = capabilities })
 vim.lsp.config('gopls', { capabilities = capabilities })
 vim.lsp.config('tailwindcss', { capabilities = capabilities })
+vim.lsp.config('pyright', { capabilities = capabilities })
+vim.lsp.config('clangd', { capabilities = capabilities })
 
-vim.lsp.enable({ 'lua_ls', 'ts_ls', 'gopls', 'tailwindcss' })
+vim.lsp.enable({ 'lua_ls', 'ts_ls', 'gopls', 'tailwindcss', 'pyright', 'clangd' })
+
+vim.diagnostic.config({
+    virtual_text = false,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -39,6 +57,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
